@@ -88,8 +88,9 @@
   </div>
   <div class="card">
     <h2 data-t="q3">How are you feeling now?</h2>
+    <p class="hint" data-t="opt">Optional. Tap any that apply.</p>
     <div class="chips" id="outcomes"></div>
-    <input class="other-in" id="o-outcome" data-ph="ph3" maxlength="120" />
+    <input class="other-in" id="o-outcomes" data-ph="ph3" maxlength="120" />
   </div>
   <div class="card">
     <h2 data-t="q4">Your review</h2>
@@ -166,8 +167,17 @@ const LIKES = [
 ];
 const OUTCOMES = [
   { id: "better", en: ["Feeling much better", ["I'm feeling much better now.", "I can already feel a real difference.", "My health has improved a lot."]], hi: ["काफ़ी बेहतर", ["अब काफ़ी बेहतर महसूस होता है।", "मुझे साफ़ फ़र्क महसूस हो रहा है।", "मेरी सेहत में अच्छा सुधार हुआ है।"]], mr: ["खूप बरं वाटतंय", ["आता मला खूप बरं वाटतंय.", "मला स्पष्ट फरक जाणवतोय.", "माझ्या तब्येतीत छान सुधारणा झाली आहे."]] },
+  { id: "recovered", en: ["Fully recovered", ["I have recovered well.", "My problem has settled completely.", "I'm back to normal now."]], hi: ["पूरी तरह ठीक", ["समस्या पूरी तरह ठीक हो गई है।", "अब सब सामान्य है।", "अब कोई तकलीफ़ नहीं है।"]], mr: ["पूर्ण बरं", ["आता त्रास पूर्णपणे गेला आहे.", "माझी तब्येत आता पूर्ण ठीक आहे.", "आता सगळं सामान्य आहे."]] },
   { id: "improving", en: ["Improving steadily", ["I'm improving steadily.", "Things are getting better week by week.", "I'm seeing steady progress."]], hi: ["धीरे-धीरे सुधार", ["धीरे-धीरे सुधार हो रहा है।", "हर हफ़्ते हालत बेहतर हो रही है।", "लगातार सुधार दिख रहा है।"]], mr: ["हळूहळू सुधारणा", ["हळूहळू सुधारणा होत आहे.", "दर आठवड्याला तब्येत सुधारते आहे.", "सातत्याने सुधारणा दिसते आहे."]] },
-  { id: "started", en: ["Just started", ["I've just started the treatment and I'm hopeful.", "It's early days, but I feel positive.", "I've just begun and I'm looking forward to the results."]], hi: ["अभी शुरुआत है", ["अभी इलाज शुरू किया है और उम्मीद है।", "अभी शुरुआत है, पर अच्छा लग रहा है।", "अभी इलाज शुरू हुआ है, आगे का इंतज़ार है।"]], mr: ["नुकतीच सुरुवात", ["नुकतेच उपचार सुरू केले आहेत आणि आशा आहे.", "अजून सुरुवात आहे, पण छान वाटतंय.", "उपचार नुकतेच सुरू झाले आहेत, पुढच्या प्रगतीची उत्सुकता आहे."]] }
+  { id: "reduced", en: ["Symptoms reduced", ["My symptoms have reduced a lot.", "The problem is much less than before.", "I have far fewer complaints now."]], hi: ["लक्षण कम हुए", ["मेरे लक्षण काफ़ी कम हो गए हैं।", "समस्या पहले से बहुत कम है।", "अब तकलीफ़ बहुत कम है।"]], mr: ["लक्षणं कमी झाली", ["माझी लक्षणं खूप कमी झाली आहेत.", "त्रास पूर्वीपेक्षा खूप कमी आहे.", "आता तक्रारी खूप कमी आहेत."]] },
+  { id: "lessoften", en: ["Comes back less often", ["The problem doesn't come back as often now.", "The flare-ups are much less frequent.", "It recurs far less than before."]], hi: ["बार-बार नहीं होता", ["अब समस्या बार-बार नहीं होती।", "तकलीफ़ अब पहले जितनी बार नहीं लौटती।", "पहले से बहुत कम बार होता है।"]], mr: ["वारंवार होत नाही", ["आता त्रास वारंवार होत नाही.", "त्रास पूर्वीइतका परत येत नाही.", "पूर्वीपेक्षा खूप कमी वेळा होतो."]] },
+  { id: "sleep", en: ["Sleeping better", ["I'm sleeping much better.", "My sleep has improved.", "I wake up feeling rested now."]], hi: ["अच्छी नींद", ["अब नींद बहुत अच्छी आती है।", "मेरी नींद में सुधार हुआ है।", "अब सुबह तरोताज़ा महसूस होता है।"]], mr: ["चांगली झोप", ["आता झोप खूप छान लागते.", "माझ्या झोपेत सुधारणा झाली आहे.", "आता सकाळी ताजंतवानं वाटतं."]] },
+  { id: "energy", en: ["More energy", ["I have more energy now.", "I feel more active through the day.", "My energy levels are better."]], hi: ["ज़्यादा ऊर्जा", ["अब ज़्यादा ऊर्जा महसूस होती है।", "दिनभर ज़्यादा फुर्ती रहती है।", "मेरी ऊर्जा बेहतर हुई है।"]], mr: ["जास्त उत्साह", ["आता जास्त उत्साह वाटतो.", "दिवसभर जास्त ताजंतवानं वाटतं.", "माझी ऊर्जा वाढली आहे."]] },
+  { id: "calmer", en: ["Calmer, less stressed", ["I feel calmer and less stressed.", "My stress has come down.", "I feel more relaxed now."]], hi: ["कम तनाव", ["अब मन शांत है और तनाव कम है।", "मेरा तनाव कम हुआ है।", "अब ज़्यादा सुकून महसूस होता है।"]], mr: ["कमी ताण", ["आता मन शांत आहे, ताण कमी झाला आहे.", "माझा ताण कमी झाला आहे.", "आता जास्त निवांत वाटतं."]] },
+  { id: "child", en: ["My child is better", ["My child is much better now.", "My child's health has improved.", "My child is happier and healthier."]], hi: ["बच्चा बेहतर है", ["मेरा बच्चा अब काफ़ी बेहतर है।", "बच्चे की सेहत में सुधार हुआ है।", "बच्चा अब ज़्यादा खुश और स्वस्थ है।"]], mr: ["मूल बरं आहे", ["माझं मूल आता खूप बरं आहे.", "मुलाच्या तब्येतीत सुधारणा झाली आहे.", "मूल आता जास्त आनंदी आणि निरोगी आहे."]] },
+  { id: "noside", en: ["No side effects", ["I haven't had any side effects.", "The medicines suited me well.", "No side effects at all."]], hi: ["कोई साइड इफ़ेक्ट नहीं", ["मुझे कोई साइड इफ़ेक्ट नहीं हुआ।", "दवाइयाँ अच्छे से सूट हुईं।", "कोई साइड इफ़ेक्ट नहीं हुआ।"]], mr: ["दुष्परिणाम नाहीत", ["मला कोणतेही दुष्परिणाम झाले नाहीत.", "औषधं चांगली लागू पडली.", "कोणतेही दुष्परिणाम नाहीत."]] },
+  { id: "started", en: ["Just started", ["I've just started the treatment and I'm hopeful.", "It's early days, but I feel positive.", "I've just begun and I'm looking forward to the results."]], hi: ["अभी शुरुआत है", ["अभी इलाज शुरू किया है और उम्मीद है।", "अभी शुरुआत है, पर अच्छा लग रहा है।", "अभी इलाज शुरू हुआ है, आगे का इंतज़ार है।"]], mr: ["नुकतीच सुरुवात", ["नुकतेच उपचार सुरू केले आहेत आणि आशा आहे.", "अजून सुरुवात आहे, पण छान वाटतंय.", "उपचार नुकतेच सुरू झाले आहेत, पुढच्या प्रगतीची उत्सुकता आहे."]] },
+  { id: "nochange", en: ["Not much change yet", ["I haven't seen much change yet, but the consultation was good.", "No big change so far, but I'm continuing the treatment.", "Results have been slow for me so far."]], hi: ["अभी ख़ास फ़र्क नहीं", ["अभी ख़ास फ़र्क नहीं दिखा, पर कंसल्टेशन अच्छा था।", "अब तक बड़ा बदलाव नहीं, पर इलाज जारी है।", "मेरे लिए अब तक नतीजे धीमे हैं।"]], mr: ["अजून फारसा फरक नाही", ["अजून फारसा फरक जाणवला नाही, पण कन्सल्टेशन चांगलं होतं.", "आतापर्यंत मोठा बदल नाही, पण उपचार सुरू आहेत.", "माझ्यासाठी अजून परिणाम हळू आहेत."]] }
 ];
 
 const OPEN = {
@@ -185,6 +195,11 @@ const GENERIC_LIKE = {
   hi: ["कंसल्टेशन बहुत ध्यान से हुआ।", "मुझे पूरा ध्यान और देखभाल मिली।", "पूरी विज़िट आसान और अच्छी रही।"],
   mr: ["कन्सल्टेशन खूप काळजीपूर्वक झालं.", "मला आपुलकीने आणि नीट वागवलं गेलं.", "संपूर्ण भेट सहज आणि छान झाली."]
 };
+const CLOSE_NEUTRAL = {
+  en: ["Thank you to the whole team.", "The clinic is well run and easy to visit."],
+  hi: ["पूरी टीम को धन्यवाद।", "क्लिनिक अच्छे से चलता है।"],
+  mr: ["संपूर्ण टीमचे आभार.", "क्लिनिक व्यवस्थित चालवलं जातं."]
+};
 const CLOSE = {
   en: ["I would recommend the clinic to anyone looking for homoeopathic treatment in Nashik.", "Thank you, Doctor!", "Highly recommended.", "I'm glad I came here.", "Thank you to the whole team."],
   hi: ["नाशिक में होमियोपैथिक इलाज के लिए इस क्लिनिक की पूरी सिफ़ारिश।", "धन्यवाद, डॉक्टर!", "ज़रूर आज़माइए।", "यहाँ आकर अच्छा लगा।"],
@@ -192,8 +207,8 @@ const CLOSE = {
 };
 
 let lang = "en";
-const sel = { reasons: new Set(), likes: new Set(), outcome: null };
-const other = { reasons: false, likes: false };
+const sel = { reasons: new Set(), likes: new Set(), outcomes: new Set() };
+const other = { reasons: false, likes: false, outcomes: false };
 let seed = Math.floor(Math.random() * 1e9), rnd = Math.random;
 function reseed() { let a = seed; rnd = () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 const pick = (a) => a[Math.floor(rnd() * a.length)];
@@ -215,10 +230,10 @@ function build() {
   const ls = shuffled(LIKES.filter((x) => sel.likes.has(x.id))).slice(0, 3).map((x) => pick(x[lang][1]));
   if (other.likes && val("o-likes")) ls.push(sentence(val("o-likes")));
   if (ls.length) parts.push(...ls); else parts.push(pick(GENERIC_LIKE[lang]));
-  const o = OUTCOMES.find((x) => x.id === sel.outcome);
-  if (o) parts.push(pick(o[lang][1]));
-  else if (sel.outcome === "other" && val("o-outcome")) parts.push(sentence(val("o-outcome")));
-  parts.push(pick(CLOSE[lang]));
+  const os = shuffled(OUTCOMES.filter((x) => sel.outcomes.has(x.id))).slice(0, 3).map((x) => pick(x[lang][1]));
+  if (other.outcomes && val("o-outcomes")) os.push(sentence(val("o-outcomes")));
+  parts.push(...os);
+  parts.push(sel.outcomes.has("nochange") ? pick(CLOSE_NEUTRAL[lang]) : pick(CLOSE[lang]));
   document.getElementById("review").value = parts.join(" ");
 }
 function chips(id, list, multi, key) {
@@ -247,13 +262,13 @@ function render() {
   document.documentElement.lang = lang;
   document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = UI[lang][e.dataset.t]; });
   document.querySelectorAll(".langs button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
-  chips("reasons", REASONS, true, "reasons"); chips("likes", LIKES, true, "likes"); chips("outcomes", OUTCOMES, false, "outcome");
+  chips("reasons", REASONS, true, "reasons"); chips("likes", LIKES, true, "likes"); chips("outcomes", OUTCOMES, true, "outcomes");
   document.getElementById("o-reasons").classList.toggle("show", other.reasons);
   document.getElementById("o-likes").classList.toggle("show", other.likes);
-  document.getElementById("o-outcome").classList.toggle("show", sel.outcome === "other");
+  document.getElementById("o-outcomes").classList.toggle("show", other.outcomes);
   document.querySelectorAll("[data-ph]").forEach((e) => { e.placeholder = UI[lang][e.dataset.ph]; });
 }
-["o-reasons", "o-likes", "o-outcome"].forEach((id) => document.getElementById(id).addEventListener("input", build));
+["o-reasons", "o-likes", "o-outcomes"].forEach((id) => document.getElementById(id).addEventListener("input", build));
 function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 3500); }
 async function copyText(txt) {
   try { await navigator.clipboard.writeText(txt); return true; } catch (e) {}
