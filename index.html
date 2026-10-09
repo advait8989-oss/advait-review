@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Review Advait Homoeopathic Clinic</title>
+<meta name="description" content="Share your experience of Advait Homoeopathic Clinic, Nashik, on Google." />
+<meta name="theme-color" content="#14235c" />
+<link rel="icon" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Mukta:wght@500;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+<style>
+  :root { --navy: #14235c; --deep: #0b1538; --gold: #d4b25a; --gold-soft: #e9d59a; --cream: #f8f4ea; --ink: #1d2433; --muted: #5d6680; --line: #e4dccb; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--cream); color: var(--ink); font-family: "Inter", "Mukta", system-ui, sans-serif; -webkit-text-size-adjust: 100%; }
+  body.lang-hi, body.lang-mr { font-family: "Mukta", "Inter", system-ui, sans-serif; }
+  header { background: radial-gradient(120% 90% at 50% 0%, #1c2f74 0%, var(--navy) 55%, var(--deep) 100%); color: #fff; padding: 22px 16px 26px; text-align: center; }
+  header img { width: 76px; height: 76px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px var(--gold); }
+  header h1 { font-size: 21px; font-weight: 700; margin-top: 10px; letter-spacing: 0.01em; }
+  header p { font-size: 14px; color: var(--gold-soft); margin-top: 4px; }
+  .langs { display: flex; gap: 6px; justify-content: center; margin-top: 14px; }
+  .langs button { border: 1.5px solid rgba(233, 213, 154, 0.6); background: transparent; color: #fff; padding: 6px 14px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; }
+  .langs button.on { background: var(--gold); color: var(--deep); border-color: var(--gold); font-weight: 700; }
+  main { max-width: 560px; margin: 0 auto; padding: 18px 16px 40px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-bottom: 14px; }
+  h2 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .hint { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1.5px solid var(--line); background: #fbf9f4; color: var(--ink); padding: 8px 12px; border-radius: 999px; font: inherit; font-size: 14px; cursor: pointer; }
+  .chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+  textarea { width: 100%; min-height: 170px; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; font: inherit; font-size: 16px; line-height: 1.5; color: var(--ink); background: #fffdf8; resize: vertical; }
+  textarea:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .btn { flex: 1; min-width: 140px; border: 0; border-radius: 12px; padding: 14px 12px; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+  .btn.ghost { background: #fff; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn.main { background: var(--gold); color: var(--deep); width: 100%; font-size: 18px; padding: 16px; box-shadow: 0 6px 18px rgba(212, 178, 90, 0.35); }
+  .steps { list-style: none; counter-reset: s; }
+  .steps li { counter-increment: s; position: relative; padding-left: 34px; margin: 8px 0; font-size: 15px; line-height: 1.4; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; }
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: var(--deep); color: #fff; padding: 12px 18px; border-radius: 12px; font-size: 15px; transition: transform 0.25s; max-width: calc(100% - 32px); text-align: center; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .note { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.5; }
+  .direct { display: block; text-align: center; margin-top: 12px; color: var(--navy); font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="Advait Clinic logo" />
+  <h1 data-t="title">Advait Homoeopathic Clinic</h1>
+  <p data-t="sub">Thank you for visiting us. Your review helps other patients.</p>
+  <div class="langs">
+    <button data-lang="en" class="on">English</button>
+    <button data-lang="hi">हिंदी</button>
+    <button data-lang="mr">मराठी</button>
+  </div>
+</header>
+<main>
+  <div class="card">
+    <h2 data-t="q1">What did you visit for?</h2>
+    <p class="hint" data-t="opt">Optional. Tap any that apply.</p>
+    <div class="chips" id="reasons"></div>
+  </div>
+  <div class="card">
+    <h2 data-t="q2">What did you like?</h2>
+    <p class="hint" data-t="opt">Optional. Tap any that apply.</p>
+    <div class="chips" id="likes"></div>
+  </div>
+  <div class="card">
+    <h2 data-t="q3">How are you feeling now?</h2>
+    <div class="chips" id="outcomes"></div>
+  </div>
+  <div class="card">
+    <h2 data-t="q4">Your review</h2>
+    <p class="hint" data-t="edit">A suggestion based on your answers. Please change it so it's in your own words.</p>
+    <textarea id="review" aria-label="Your review"></textarea>
+    <div class="row">
+      <button class="btn ghost" id="shuffle" data-t="shuffle">↻ Another wording</button>
+    </div>
+  </div>
+  <button class="btn main" id="go" data-t="go">Copy &amp; open Google review</button>
+  <a class="direct" id="direct" target="_blank" rel="noopener" data-t="direct">Or just open the Google review page</a>
+  <div class="card" style="margin-top: 16px">
+    <h2 data-t="how">On the Google page</h2>
+    <ol class="steps">
+      <li data-t="s1">Tap the stars to rate your visit.</li>
+      <li data-t="s2">Long-press the text box and tap Paste.</li>
+      <li data-t="s3">Tap Post. Thank you!</li>
+    </ol>
+  </div>
+  <p class="note" data-t="foot">Please share your honest experience. Every review is welcome, good or bad.</p>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const REVIEW_URL = "https://g.page/r/CWrgB8NAWCBAEAE/review";
+const DR = { en: "Dr. Anuprita Dhakane", hi: "डॉ. अनुप्रिता ढाकणे", mr: "डॉ. अनुप्रिता ढाकणे" };
+const CLINIC = { en: "Advait Homoeopathic Clinic", hi: "अद्वैत होमियोपैथिक क्लिनिक", mr: "अद्वैत होमिओपॅथिक क्लिनिक" };
+
+const UI = {
+  en: { title: "Advait Homoeopathic Clinic", sub: "Thank you for visiting us. Your review helps other patients.", q1: "What did you visit for?", q2: "What did you like?", q3: "How are you feeling now?", q4: "Your review", opt: "Optional. Tap any that apply.", edit: "A suggestion based on your answers. Please change it so it's in your own words.", shuffle: "↻ Another wording", go: "Copy & open Google review", direct: "Or just open the Google review page", how: "On the Google page", s1: "Tap the stars to rate your visit.", s2: "Long-press the text box and tap Paste.", s3: "Tap Post. Thank you!", foot: "Please share your honest experience. Every review is welcome, good or bad.", copied: "Review copied. Paste it on the Google page.", nocopy: "Couldn't copy automatically. Select the text and copy it, then open Google." },
+  hi: { title: "अद्वैत होमियोपैथिक क्लिनिक", sub: "आने के लिए धन्यवाद। आपका रिव्यू दूसरे मरीज़ों की मदद करता है।", q1: "आप किस समस्या के लिए आए थे?", q2: "आपको क्या अच्छा लगा?", q3: "अब आप कैसा महसूस कर रहे हैं?", q4: "आपका रिव्यू", opt: "ज़रूरी नहीं। जो लागू हो उसे चुनें।", edit: "आपके जवाबों पर आधारित एक सुझाव। इसे अपने शब्दों में बदल लें।", shuffle: "↻ दूसरे शब्दों में", go: "कॉपी करें और Google रिव्यू खोलें", direct: "या सीधे Google रिव्यू पेज खोलें", how: "Google पेज पर", s1: "स्टार चुनकर रेटिंग दें।", s2: "टेक्स्ट बॉक्स पर देर तक दबाएँ और Paste चुनें।", s3: "Post दबाएँ। धन्यवाद!", foot: "कृपया अपना सच्चा अनुभव लिखें। हर रिव्यू का स्वागत है।", copied: "रिव्यू कॉपी हो गया। Google पेज पर Paste करें।", nocopy: "अपने आप कॉपी नहीं हुआ। टेक्स्ट चुनकर कॉपी करें, फिर Google खोलें।" },
+  mr: { title: "अद्वैत होमिओपॅथिक क्लिनिक", sub: "भेट दिल्याबद्दल धन्यवाद. तुमचा रिव्ह्यू इतर रुग्णांना मदत करतो.", q1: "तुम्ही कोणत्या त्रासासाठी आला होतात?", q2: "तुम्हाला काय आवडलं?", q3: "आता तुम्हाला कसं वाटतंय?", q4: "तुमचा रिव्ह्यू", opt: "ऐच्छिक. लागू असेल ते निवडा.", edit: "तुमच्या उत्तरांवर आधारित एक सूचना. ती तुमच्या शब्दांत बदला.", shuffle: "↻ दुसऱ्या शब्दांत", go: "कॉपी करा आणि Google रिव्ह्यू उघडा", direct: "किंवा थेट Google रिव्ह्यू पेज उघडा", how: "Google पेजवर", s1: "स्टार निवडून रेटिंग द्या.", s2: "टेक्स्ट बॉक्सवर दाबून धरा आणि Paste निवडा.", s3: "Post दाबा. धन्यवाद!", foot: "कृपया तुमचा खरा अनुभव लिहा. प्रत्येक रिव्ह्यूचं स्वागत आहे.", copied: "रिव्ह्यू कॉपी झाला. Google पेजवर Paste करा.", nocopy: "आपोआप कॉपी झालं नाही. मजकूर निवडून कॉपी करा, मग Google उघडा." }
+};
+
+// chip labels and the phrase each one contributes
+const REASONS = [
+  { id: "skin", en: ["Skin", "a skin problem"], hi: ["त्वचा", "त्वचा की समस्या"], mr: ["त्वचा", "त्वचेच्या त्रासा"] },
+  { id: "hair", en: ["Hair fall", "hair fall"], hi: ["बाल झड़ना", "बाल झड़ने की समस्या"], mr: ["केस गळणे", "केस गळतीच्या त्रासा"] },
+  { id: "joint", en: ["Joint / back pain", "joint pain"], hi: ["जोड़ / कमर दर्द", "जोड़ों के दर्द"], mr: ["सांधे / पाठदुखी", "सांधेदुखी"] },
+  { id: "allergy", en: ["Allergy / cold", "allergies"], hi: ["एलर्जी / सर्दी", "एलर्जी"], mr: ["ॲलर्जी / सर्दी", "ॲलर्जी"] },
+  { id: "thyroid", en: ["Thyroid", "thyroid"], hi: ["थायरॉइड", "थायरॉइड"], mr: ["थायरॉईड", "थायरॉईड"] },
+  { id: "women", en: ["PCOS / women's health", "a women's health concern"], hi: ["PCOS / महिला स्वास्थ्य", "महिला स्वास्थ्य की समस्या"], mr: ["PCOS / स्त्री आरोग्य", "स्त्री आरोग्याच्या त्रासा"] },
+  { id: "child", en: ["My child", "my child's health"], hi: ["बच्चे के लिए", "अपने बच्चे की सेहत"], mr: ["मुलासाठी", "माझ्या मुलाच्या आरोग्या"] },
+  { id: "stress", en: ["Stress / sleep", "stress and sleep"], hi: ["तनाव / नींद", "तनाव और नींद"], mr: ["ताण / झोप", "ताण आणि झोपेच्या त्रासा"] },
+  { id: "digest", en: ["Digestion", "digestion problems"], hi: ["पाचन", "पाचन की समस्या"], mr: ["पचन", "पचनाच्या त्रासा"] }
+];
+const LIKES = [
+  { id: "listen", en: ["Listened patiently", ["The doctor listened to everything patiently.", "She took the time to hear my whole history.", "I never felt rushed during the consultation."]], hi: ["धैर्य से सुना", ["डॉक्टर ने सब कुछ धैर्य से सुना।", "उन्होंने मेरी पूरी बात समय लेकर सुनी।", "कंसल्टेशन में कभी जल्दबाज़ी नहीं लगी।"]], mr: ["शांतपणे ऐकलं", ["डॉक्टरांनी सगळं शांतपणे ऐकून घेतलं.", "त्यांनी माझी संपूर्ण माहिती वेळ देऊन समजून घेतली.", "कन्सल्टेशनमध्ये कधीही घाई जाणवली नाही."]] },
+  { id: "explain", en: ["Explained clearly", ["Everything was explained clearly.", "She explained the treatment in simple words.", "All my questions were answered."]], hi: ["साफ़ समझाया", ["सब कुछ अच्छे से समझाया गया।", "इलाज के बारे में आसान शब्दों में बताया।", "मेरे सारे सवालों के जवाब मिले।"]], mr: ["नीट समजावलं", ["सगळं नीट समजावून सांगितलं.", "उपचार सोप्या शब्दांत समजावले.", "माझ्या सगळ्या प्रश्नांची उत्तरं मिळाली."]] },
+  { id: "gentle", en: ["Gentle medicines", ["The medicines were easy to take.", "I liked that the treatment was gentle.", "Taking the medicines was simple."]], hi: ["आसान दवाइयाँ", ["दवाइयाँ लेना बहुत आसान था।", "इलाज सौम्य था, यह अच्छा लगा।", "दवाइयाँ लेना सरल रहा।"]], mr: ["सोपी औषधं", ["औषधं घ्यायला सोपी होती.", "उपचार सौम्य होते, हे आवडलं.", "औषधं घेणं अगदी सोपं होतं."]] },
+  { id: "staff", en: ["Friendly staff", ["The staff were friendly and helpful.", "Everyone at the clinic was polite and warm.", "The staff made the visit comfortable."]], hi: ["अच्छा स्टाफ़", ["स्टाफ़ बहुत मददगार और विनम्र था।", "क्लिनिक में सभी का व्यवहार अच्छा था।", "स्टाफ़ की वजह से सब आसान रहा।"]], mr: ["चांगला स्टाफ", ["स्टाफ खूप मदत करणारा आणि नम्र होता.", "क्लिनिकमधील सगळ्यांचं वागणं छान होतं.", "स्टाफमुळे भेट सोयीस्कर झाली."]] },
+  { id: "clean", en: ["Clean clinic", ["The clinic is clean and calm.", "It's a neat, peaceful clinic.", "The clinic felt clean and welcoming."]], hi: ["साफ़ क्लिनिक", ["क्लिनिक साफ़ और शांत है।", "क्लिनिक का माहौल साफ़-सुथरा और शांत है।", "क्लिनिक साफ़ और अच्छा लगा।"]], mr: ["स्वच्छ क्लिनिक", ["क्लिनिक स्वच्छ आणि शांत आहे.", "क्लिनिकचं वातावरण नीटनेटकं आणि शांत आहे.", "क्लिनिक स्वच्छ आणि प्रसन्न वाटलं."]] },
+  { id: "wait", en: ["Little waiting", ["I didn't have to wait long.", "The appointment ran on time.", "Waiting time was short."]], hi: ["कम इंतज़ार", ["ज़्यादा इंतज़ार नहीं करना पड़ा।", "अपॉइंटमेंट समय पर हुआ।", "इंतज़ार का समय कम था।"]], mr: ["कमी प्रतीक्षा", ["फार वाट पाहावी लागली नाही.", "अपॉइंटमेंट वेळेवर झाली.", "प्रतीक्षेचा वेळ कमी होता."]] },
+  { id: "fees", en: ["Reasonable fees", ["The fees are reasonable.", "The consultation is fairly priced.", "Treatment is affordable."]], hi: ["उचित फ़ीस", ["फ़ीस उचित है।", "कंसल्टेशन की फ़ीस ठीक है।", "इलाज किफ़ायती है।"]], mr: ["योग्य फी", ["फी योग्य आहे.", "कन्सल्टेशनची फी वाजवी आहे.", "उपचार परवडणारे आहेत."]] },
+  { id: "follow", en: ["Good follow-up", ["The follow-ups are regular and caring.", "She keeps track of my progress at every visit.", "Follow-up visits are well organised."]], hi: ["अच्छा फ़ॉलो-अप", ["फ़ॉलो-अप नियमित और ध्यान से होता है।", "हर विज़िट पर मेरी प्रगति देखी जाती है।", "फ़ॉलो-अप अच्छे से होता है।"]], mr: ["चांगला फॉलो-अप", ["फॉलो-अप नियमित आणि काळजीपूर्वक होतो.", "प्रत्येक भेटीत माझी प्रगती पाहिली जाते.", "फॉलो-अप व्यवस्थित होतो."]] }
+];
+const OUTCOMES = [
+  { id: "better", en: ["Feeling much better", ["I'm feeling much better now.", "I can already feel a real difference.", "My health has improved a lot."]], hi: ["काफ़ी बेहतर", ["अब काफ़ी बेहतर महसूस होता है।", "मुझे साफ़ फ़र्क महसूस हो रहा है।", "मेरी सेहत में अच्छा सुधार हुआ है।"]], mr: ["खूप बरं वाटतंय", ["आता मला खूप बरं वाटतंय.", "मला स्पष्ट फरक जाणवतोय.", "माझ्या तब्येतीत छान सुधारणा झाली आहे."]] },
+  { id: "improving", en: ["Improving steadily", ["I'm improving steadily.", "Things are getting better week by week.", "I'm seeing steady progress."]], hi: ["धीरे-धीरे सुधार", ["धीरे-धीरे सुधार हो रहा है।", "हर हफ़्ते हालत बेहतर हो रही है।", "लगातार सुधार दिख रहा है।"]], mr: ["हळूहळू सुधारणा", ["हळूहळू सुधारणा होत आहे.", "दर आठवड्याला तब्येत सुधारते आहे.", "सातत्याने सुधारणा दिसते आहे."]] },
+  { id: "started", en: ["Just started", ["I've just started the treatment and I'm hopeful.", "It's early days, but I feel positive.", "I've just begun and I'm looking forward to the results."]], hi: ["अभी शुरुआत है", ["अभी इलाज शुरू किया है और उम्मीद है।", "अभी शुरुआत है, पर अच्छा लग रहा है।", "अभी इलाज शुरू हुआ है, आगे का इंतज़ार है।"]], mr: ["नुकतीच सुरुवात", ["नुकतेच उपचार सुरू केले आहेत आणि आशा आहे.", "अजून सुरुवात आहे, पण छान वाटतंय.", "उपचार नुकतेच सुरू झाले आहेत, पुढच्या प्रगतीची उत्सुकता आहे."]] }
+];
+
+const OPEN = {
+  en: [r => `I visited ${DR.en} at ${CLINIC.en} for ${r}.`, r => `I consulted ${DR.en} for ${r}.`, r => `I came to ${CLINIC.en} for ${r}.`, r => `I've been seeing ${DR.en} for ${r}.`],
+  hi: [r => `${r} के लिए मैंने ${CLINIC.hi} में ${DR.hi} से इलाज करवाया।`, r => `मैंने ${r} के लिए ${DR.hi} से इलाज करवाया।`, r => `${r} के लिए मेरा इलाज ${CLINIC.hi} में चल रहा है।`],
+  mr: [r => `${r}साठी मी ${CLINIC.mr}मध्ये ${DR.mr} यांचा सल्ला घेतला.`, r => `${r}साठी मी ${DR.mr} यांच्याकडून उपचार घेतले.`, r => `${r}साठी मी ${CLINIC.mr}ला भेट दिली.`]
+};
+const OPEN_PLAIN = {
+  en: [`I visited ${DR.en} at ${CLINIC.en}.`, `My experience at ${CLINIC.en} was very good.`, `I consulted ${DR.en} at her clinic in Mahatma Nagar.`],
+  hi: [`मैंने ${CLINIC.hi} में ${DR.hi} से इलाज करवाया।`, `${CLINIC.hi} में मेरा अनुभव बहुत अच्छा रहा।`],
+  mr: [`मी ${CLINIC.mr}मध्ये ${DR.mr} यांचा सल्ला घेतला.`, `${CLINIC.mr}मधला माझा अनुभव खूप छान होता.`]
+};
+const GENERIC_LIKE = {
+  en: ["The consultation was thorough and caring.", "I felt comfortable and well looked after.", "The whole visit was smooth and pleasant."],
+  hi: ["कंसल्टेशन बहुत ध्यान से हुआ।", "मुझे पूरा ध्यान और देखभाल मिली।", "पूरी विज़िट आसान और अच्छी रही।"],
+  mr: ["कन्सल्टेशन खूप काळजीपूर्वक झालं.", "मला आपुलकीने आणि नीट वागवलं गेलं.", "संपूर्ण भेट सहज आणि छान झाली."]
+};
+const CLOSE = {
+  en: ["I would recommend the clinic to anyone looking for homoeopathic treatment in Nashik.", "Thank you, Doctor!", "Highly recommended.", "I'm glad I came here.", "Thank you to the whole team."],
+  hi: ["नाशिक में होमियोपैथिक इलाज के लिए इस क्लिनिक की पूरी सिफ़ारिश।", "धन्यवाद, डॉक्टर!", "ज़रूर आज़माइए।", "यहाँ आकर अच्छा लगा।"],
+  mr: ["नाशिकमध्ये होमिओपॅथिक उपचारांसाठी मी या क्लिनिकची नक्की शिफारस करेन.", "धन्यवाद, डॉक्टर!", "नक्की शिफारस करेन.", "इथे आल्याचं समाधान आहे."]
+};
+
+let lang = "en";
+const sel = { reasons: new Set(), likes: new Set(), outcome: null };
+const pick = (a) => a[Math.floor(Math.random() * a.length)];
+const shuffled = (a) => a.map((v) => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+function joinList(items, l) {
+  if (items.length <= 1) return items[0] || "";
+  const and = { en: " and ", hi: " और ", mr: " आणि " }[l];
+  return items.slice(0, -1).join(", ") + and + items[items.length - 1];
+}
+function build() {
+  const parts = [];
+  const rs = REASONS.filter((r) => sel.reasons.has(r.id)).map((r) => r[lang][1]);
+  if (rs.length) parts.push(pick(OPEN[lang])(joinList(rs, lang)));
+  else parts.push(pick(OPEN_PLAIN[lang]));
+  const ls = shuffled(LIKES.filter((x) => sel.likes.has(x.id))).slice(0, 3).map((x) => pick(x[lang][1]));
+  if (ls.length) parts.push(...ls); else parts.push(pick(GENERIC_LIKE[lang]));
+  const o = OUTCOMES.find((x) => x.id === sel.outcome);
+  if (o) parts.push(pick(o[lang][1]));
+  parts.push(pick(CLOSE[lang]));
+  document.getElementById("review").value = parts.join(" ");
+}
+function chips(id, list, multi, key) {
+  const el = document.getElementById(id); el.innerHTML = "";
+  list.forEach((item) => {
+    const b = document.createElement("button"); b.className = "chip"; b.type = "button"; b.textContent = item[lang][0];
+    const on = multi ? sel[key].has(item.id) : sel[key] === item.id; if (on) b.classList.add("on");
+    b.onclick = () => {
+      if (multi) { sel[key].has(item.id) ? sel[key].delete(item.id) : sel[key].add(item.id); }
+      else { sel[key] = sel[key] === item.id ? null : item.id; }
+      render(); build();
+    };
+    el.appendChild(b);
+  });
+}
+function render() {
+  document.body.className = "lang-" + lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = UI[lang][e.dataset.t]; });
+  document.querySelectorAll(".langs button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
+  chips("reasons", REASONS, true, "reasons"); chips("likes", LIKES, true, "likes"); chips("outcomes", OUTCOMES, false, "outcome");
+}
+function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 3500); }
+async function copyText(txt) {
+  try { await navigator.clipboard.writeText(txt); return true; } catch (e) {}
+  const ta = document.getElementById("review"); ta.focus(); ta.select();
+  try { return document.execCommand("copy"); } catch (e) { return false; }
+}
+document.querySelectorAll(".langs button").forEach((b) => b.onclick = () => { lang = b.dataset.lang; render(); build(); });
+document.getElementById("shuffle").onclick = build;
+document.getElementById("direct").href = REVIEW_URL;
+document.getElementById("go").onclick = async () => {
+  const ok = await copyText(document.getElementById("review").value);
+  toast(ok ? UI[lang].copied : UI[lang].nocopy);
+  if (ok) setTimeout(() => { window.location.href = REVIEW_URL; }, 900);
+};
+render(); build();
+</script>
+</body>
+</html>
