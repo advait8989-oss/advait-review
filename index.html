@@ -40,6 +40,25 @@
   .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(120px); background: var(--deep); color: #fff; padding: 12px 18px; border-radius: 12px; font-size: 15px; transition: transform 0.25s; max-width: calc(100% - 32px); text-align: center; }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .note { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.5; }
+  .other-in { display: none; width: 100%; margin-top: 10px; border: 1.5px solid var(--gold); border-radius: 12px; padding: 12px; font: inherit; font-size: 16px; background: #fffdf8; color: var(--ink); }
+  .other-in.show { display: block; }
+  .chip.other { border-style: dashed; }
+  .sheet { position: fixed; inset: 0; background: rgba(11, 21, 56, 0.72); display: none; align-items: flex-end; justify-content: center; z-index: 10; }
+  .sheet.show { display: flex; }
+  .sheet-box { background: #fff; width: 100%; max-width: 560px; border-radius: 22px 22px 0 0; padding: 22px 18px 26px; text-align: center; }
+  .tick { width: 58px; height: 58px; margin: 0 auto 8px; border-radius: 50%; background: #2e9e6b; color: #fff; font-size: 32px; line-height: 58px; font-weight: 700; }
+  .sheet h3 { font-size: 21px; color: var(--navy); }
+  .sheet .lead { font-size: 15px; color: var(--muted); margin: 4px 0 14px; }
+  .mock { border: 1.5px solid var(--line); border-radius: 14px; padding: 14px; text-align: left; background: #fbf9f4; margin-bottom: 14px; }
+  .mock .stars { font-size: 30px; letter-spacing: 6px; color: #f4b400; }
+  .mock .box { position: relative; margin-top: 10px; height: 64px; border: 2px solid #1a73e8; border-radius: 8px; background: #fff; }
+  .mock .bubble { position: absolute; left: 14px; top: -22px; background: #202124; color: #fff; font-size: 15px; font-weight: 700; padding: 7px 14px; border-radius: 8px; }
+  .mock .bubble::after { content: ""; position: absolute; left: 18px; bottom: -6px; border: 6px solid transparent; border-top-color: #202124; border-bottom: 0; }
+  .mock .finger { position: absolute; left: 34px; top: 26px; font-size: 26px; }
+  .big-steps { text-align: left; list-style: none; margin: 0 0 16px; }
+  .big-steps li { display: flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; margin: 10px 0; color: var(--ink); }
+  .big-steps b { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--gold); color: var(--deep); display: grid; place-items: center; font-size: 16px; }
+  .linkbtn { background: none; border: 0; color: var(--muted); font: inherit; font-size: 15px; margin-top: 12px; text-decoration: underline; cursor: pointer; }
   .direct { display: block; text-align: center; margin-top: 12px; color: var(--navy); font-size: 14px; }
 </style>
 </head>
@@ -59,15 +78,18 @@
     <h2 data-t="q1">What did you visit for?</h2>
     <p class="hint" data-t="opt">Optional. Tap any that apply.</p>
     <div class="chips" id="reasons"></div>
+    <input class="other-in" id="o-reasons" data-ph="ph1" maxlength="80" />
   </div>
   <div class="card">
     <h2 data-t="q2">What did you like?</h2>
     <p class="hint" data-t="opt">Optional. Tap any that apply.</p>
     <div class="chips" id="likes"></div>
+    <input class="other-in" id="o-likes" data-ph="ph2" maxlength="120" />
   </div>
   <div class="card">
     <h2 data-t="q3">How are you feeling now?</h2>
     <div class="chips" id="outcomes"></div>
+    <input class="other-in" id="o-outcome" data-ph="ph3" maxlength="120" />
   </div>
   <div class="card">
     <h2 data-t="q4">Your review</h2>
@@ -89,6 +111,24 @@
   </div>
   <p class="note" data-t="foot">Please share your honest experience. Every review is welcome, good or bad.</p>
 </main>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="sheet-box">
+    <div class="tick">✓</div>
+    <h3 data-t="done">Your review is copied</h3>
+    <p class="lead" data-t="nextp">On the next screen, do just this:</p>
+    <div class="mock" aria-hidden="true">
+      <div class="stars">★★★★★</div>
+      <div class="box"><span class="bubble" data-t="paste">Paste</span><span class="finger">👆</span></div>
+    </div>
+    <ol class="big-steps">
+      <li><b>1</b><span data-t="a1">Tap the stars</span></li>
+      <li><b>2</b><span data-t="a2">Tap the empty box, then tap Paste</span></li>
+      <li><b>3</b><span data-t="a3">Tap Post</span></li>
+    </ol>
+    <a class="btn main" id="open" data-t="open">Open Google ➜</a>
+    <button class="linkbtn" id="back" type="button" data-t="back">Go back and edit</button>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -97,9 +137,9 @@ const DR = { en: "Dr. Anuprita Dhakane", hi: "डॉ. अनुप्रित�
 const CLINIC = { en: "Advait Homoeopathic Clinic", hi: "अद्वैत होमियोपैथिक क्लिनिक", mr: "अद्वैत होमिओपॅथिक क्लिनिक" };
 
 const UI = {
-  en: { title: "Advait Homoeopathic Clinic", sub: "Thank you for visiting us. Your review helps other patients.", q1: "What did you visit for?", q2: "What did you like?", q3: "How are you feeling now?", q4: "Your review", opt: "Optional. Tap any that apply.", edit: "A suggestion based on your answers. Please change it so it's in your own words.", shuffle: "↻ Another wording", go: "Copy & open Google review", direct: "Or just open the Google review page", how: "On the Google page", s1: "Tap the stars to rate your visit.", s2: "Long-press the text box and tap Paste.", s3: "Tap Post. Thank you!", foot: "Please share your honest experience. Every review is welcome, good or bad.", copied: "Review copied. Paste it on the Google page.", nocopy: "Couldn't copy automatically. Select the text and copy it, then open Google." },
-  hi: { title: "अद्वैत होमियोपैथिक क्लिनिक", sub: "आने के लिए धन्यवाद। आपका रिव्यू दूसरे मरीज़ों की मदद करता है।", q1: "आप किस समस्या के लिए आए थे?", q2: "आपको क्या अच्छा लगा?", q3: "अब आप कैसा महसूस कर रहे हैं?", q4: "आपका रिव्यू", opt: "ज़रूरी नहीं। जो लागू हो उसे चुनें।", edit: "आपके जवाबों पर आधारित एक सुझाव। इसे अपने शब्दों में बदल लें।", shuffle: "↻ दूसरे शब्दों में", go: "कॉपी करें और Google रिव्यू खोलें", direct: "या सीधे Google रिव्यू पेज खोलें", how: "Google पेज पर", s1: "स्टार चुनकर रेटिंग दें।", s2: "टेक्स्ट बॉक्स पर देर तक दबाएँ और Paste चुनें।", s3: "Post दबाएँ। धन्यवाद!", foot: "कृपया अपना सच्चा अनुभव लिखें। हर रिव्यू का स्वागत है।", copied: "रिव्यू कॉपी हो गया। Google पेज पर Paste करें।", nocopy: "अपने आप कॉपी नहीं हुआ। टेक्स्ट चुनकर कॉपी करें, फिर Google खोलें।" },
-  mr: { title: "अद्वैत होमिओपॅथिक क्लिनिक", sub: "भेट दिल्याबद्दल धन्यवाद. तुमचा रिव्ह्यू इतर रुग्णांना मदत करतो.", q1: "तुम्ही कोणत्या त्रासासाठी आला होतात?", q2: "तुम्हाला काय आवडलं?", q3: "आता तुम्हाला कसं वाटतंय?", q4: "तुमचा रिव्ह्यू", opt: "ऐच्छिक. लागू असेल ते निवडा.", edit: "तुमच्या उत्तरांवर आधारित एक सूचना. ती तुमच्या शब्दांत बदला.", shuffle: "↻ दुसऱ्या शब्दांत", go: "कॉपी करा आणि Google रिव्ह्यू उघडा", direct: "किंवा थेट Google रिव्ह्यू पेज उघडा", how: "Google पेजवर", s1: "स्टार निवडून रेटिंग द्या.", s2: "टेक्स्ट बॉक्सवर दाबून धरा आणि Paste निवडा.", s3: "Post दाबा. धन्यवाद!", foot: "कृपया तुमचा खरा अनुभव लिहा. प्रत्येक रिव्ह्यूचं स्वागत आहे.", copied: "रिव्ह्यू कॉपी झाला. Google पेजवर Paste करा.", nocopy: "आपोआप कॉपी झालं नाही. मजकूर निवडून कॉपी करा, मग Google उघडा." }
+  en: { title: "Advait Homoeopathic Clinic", sub: "Thank you for visiting us. Your review helps other patients.", q1: "What did you visit for?", q2: "What did you like?", q3: "How are you feeling now?", q4: "Your review", opt: "Optional. Tap any that apply.", edit: "A suggestion based on your answers. Please change it so it's in your own words.", shuffle: "↻ Another wording", go: "Copy & open Google review", direct: "Or just open the Google review page", how: "On the Google page", s1: "Tap the stars to rate your visit.", s2: "Tap the empty box, then tap Paste.", s3: "Tap Post. Thank you!", foot: "Please share your honest experience. Every review is welcome, good or bad.", copied: "Review copied. Paste it on the Google page.", nocopy: "Couldn't copy automatically. Select the text and copy it, then open Google.", other: "Other", ph1: "Type what you came for", ph2: "Type what you liked", ph3: "Type how you feel now", done: "Your review is copied", nextp: "On the next screen, do just this:", paste: "Paste", a1: "Tap the stars", a2: "Tap the empty box, then tap Paste", a3: "Tap Post", open: "Open Google ➜", back: "Go back and edit" },
+  hi: { title: "अद्वैत होमियोपैथिक क्लिनिक", sub: "आने के लिए धन्यवाद। आपका रिव्यू दूसरे मरीज़ों की मदद करता है।", q1: "आप किस समस्या के लिए आए थे?", q2: "आपको क्या अच्छा लगा?", q3: "अब आप कैसा महसूस कर रहे हैं?", q4: "आपका रिव्यू", opt: "ज़रूरी नहीं। जो लागू हो उसे चुनें।", edit: "आपके जवाबों पर आधारित एक सुझाव। इसे अपने शब्दों में बदल लें।", shuffle: "↻ दूसरे शब्दों में", go: "कॉपी करें और Google रिव्यू खोलें", direct: "या सीधे Google रिव्यू पेज खोलें", how: "Google पेज पर", s1: "स्टार चुनकर रेटिंग दें।", s2: "खाली बॉक्स पर टैप करें, फिर Paste दबाएँ।", s3: "Post दबाएँ। धन्यवाद!", foot: "कृपया अपना सच्चा अनुभव लिखें। हर रिव्यू का स्वागत है।", copied: "रिव्यू कॉपी हो गया। Google पेज पर Paste करें।", nocopy: "अपने आप कॉपी नहीं हुआ। टेक्स्ट चुनकर कॉपी करें, फिर Google खोलें।", other: "अन्य", ph1: "आप किसलिए आए थे, लिखें", ph2: "आपको क्या अच्छा लगा, लिखें", ph3: "अब कैसा महसूस होता है, लिखें", done: "आपका रिव्यू कॉपी हो गया", nextp: "अगली स्क्रीन पर बस इतना करें:", paste: "Paste", a1: "स्टार पर टैप करें", a2: "खाली बॉक्स पर टैप करें, फिर Paste दबाएँ", a3: "Post दबाएँ", open: "Google खोलें ➜", back: "वापस जाकर बदलें" },
+  mr: { title: "अद्वैत होमिओपॅथिक क्लिनिक", sub: "भेट दिल्याबद्दल धन्यवाद. तुमचा रिव्ह्यू इतर रुग्णांना मदत करतो.", q1: "तुम्ही कोणत्या त्रासासाठी आला होतात?", q2: "तुम्हाला काय आवडलं?", q3: "आता तुम्हाला कसं वाटतंय?", q4: "तुमचा रिव्ह्यू", opt: "ऐच्छिक. लागू असेल ते निवडा.", edit: "तुमच्या उत्तरांवर आधारित एक सूचना. ती तुमच्या शब्दांत बदला.", shuffle: "↻ दुसऱ्या शब्दांत", go: "कॉपी करा आणि Google रिव्ह्यू उघडा", direct: "किंवा थेट Google रिव्ह्यू पेज उघडा", how: "Google पेजवर", s1: "स्टार निवडून रेटिंग द्या.", s2: "रिकाम्या बॉक्सवर टॅप करा, मग Paste दाबा.", s3: "Post दाबा. धन्यवाद!", foot: "कृपया तुमचा खरा अनुभव लिहा. प्रत्येक रिव्ह्यूचं स्वागत आहे.", copied: "रिव्ह्यू कॉपी झाला. Google पेजवर Paste करा.", nocopy: "आपोआप कॉपी झालं नाही. मजकूर निवडून कॉपी करा, मग Google उघडा.", other: "इतर", ph1: "कशासाठी आलात ते लिहा", ph2: "काय आवडलं ते लिहा", ph3: "आता कसं वाटतंय ते लिहा", done: "तुमचा रिव्ह्यू कॉपी झाला", nextp: "पुढच्या स्क्रीनवर फक्त एवढंच करा:", paste: "Paste", a1: "स्टारवर टॅप करा", a2: "रिकाम्या बॉक्सवर टॅप करा, मग Paste दाबा", a3: "Post दाबा", open: "Google उघडा ➜", back: "मागे जाऊन बदला" }
 };
 
 // chip labels and the phrase each one contributes
@@ -153,22 +193,31 @@ const CLOSE = {
 
 let lang = "en";
 const sel = { reasons: new Set(), likes: new Set(), outcome: null };
-const pick = (a) => a[Math.floor(Math.random() * a.length)];
-const shuffled = (a) => a.map((v) => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+const other = { reasons: false, likes: false };
+let seed = Math.floor(Math.random() * 1e9), rnd = Math.random;
+function reseed() { let a = seed; rnd = () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const pick = (a) => a[Math.floor(rnd() * a.length)];
+const shuffled = (a) => a.map((v) => [rnd(), v]).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+const val = (id) => document.getElementById(id).value.trim();
+function sentence(t) { t = t.trim(); if (!t) return ""; t = t.charAt(0).toUpperCase() + t.slice(1); return /[.!?।]$/.test(t) ? t : t + (lang === "en" ? "." : lang === "hi" ? "।" : "."); }
 function joinList(items, l) {
   if (items.length <= 1) return items[0] || "";
   const and = { en: " and ", hi: " और ", mr: " आणि " }[l];
   return items.slice(0, -1).join(", ") + and + items[items.length - 1];
 }
 function build() {
+  reseed();
   const parts = [];
   const rs = REASONS.filter((r) => sel.reasons.has(r.id)).map((r) => r[lang][1]);
+  if (other.reasons && val("o-reasons")) rs.push(val("o-reasons"));
   if (rs.length) parts.push(pick(OPEN[lang])(joinList(rs, lang)));
   else parts.push(pick(OPEN_PLAIN[lang]));
   const ls = shuffled(LIKES.filter((x) => sel.likes.has(x.id))).slice(0, 3).map((x) => pick(x[lang][1]));
+  if (other.likes && val("o-likes")) ls.push(sentence(val("o-likes")));
   if (ls.length) parts.push(...ls); else parts.push(pick(GENERIC_LIKE[lang]));
   const o = OUTCOMES.find((x) => x.id === sel.outcome);
   if (o) parts.push(pick(o[lang][1]));
+  else if (sel.outcome === "other" && val("o-outcome")) parts.push(sentence(val("o-outcome")));
   parts.push(pick(CLOSE[lang]));
   document.getElementById("review").value = parts.join(" ");
 }
@@ -184,6 +233,14 @@ function chips(id, list, multi, key) {
     };
     el.appendChild(b);
   });
+  const ob = document.createElement("button"); ob.className = "chip other"; ob.type = "button"; ob.textContent = "+ " + UI[lang].other;
+  const oon = multi ? other[key] : sel[key] === "other"; if (oon) ob.classList.add("on");
+  ob.onclick = () => {
+    if (multi) other[key] = !other[key]; else sel[key] = sel[key] === "other" ? null : "other";
+    render(); build();
+    const inp = document.getElementById("o-" + key); if (inp.classList.contains("show")) inp.focus();
+  };
+  el.appendChild(ob);
 }
 function render() {
   document.body.className = "lang-" + lang;
@@ -191,7 +248,12 @@ function render() {
   document.querySelectorAll("[data-t]").forEach((e) => { e.textContent = UI[lang][e.dataset.t]; });
   document.querySelectorAll(".langs button").forEach((b) => b.classList.toggle("on", b.dataset.lang === lang));
   chips("reasons", REASONS, true, "reasons"); chips("likes", LIKES, true, "likes"); chips("outcomes", OUTCOMES, false, "outcome");
+  document.getElementById("o-reasons").classList.toggle("show", other.reasons);
+  document.getElementById("o-likes").classList.toggle("show", other.likes);
+  document.getElementById("o-outcome").classList.toggle("show", sel.outcome === "other");
+  document.querySelectorAll("[data-ph]").forEach((e) => { e.placeholder = UI[lang][e.dataset.ph]; });
 }
+["o-reasons", "o-likes", "o-outcome"].forEach((id) => document.getElementById(id).addEventListener("input", build));
 function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 3500); }
 async function copyText(txt) {
   try { await navigator.clipboard.writeText(txt); return true; } catch (e) {}
@@ -199,13 +261,15 @@ async function copyText(txt) {
   try { return document.execCommand("copy"); } catch (e) { return false; }
 }
 document.querySelectorAll(".langs button").forEach((b) => b.onclick = () => { lang = b.dataset.lang; render(); build(); });
-document.getElementById("shuffle").onclick = build;
+document.getElementById("shuffle").onclick = () => { seed = Math.floor(Math.random() * 1e9); build(); };
 document.getElementById("direct").href = REVIEW_URL;
 document.getElementById("go").onclick = async () => {
   const ok = await copyText(document.getElementById("review").value);
-  toast(ok ? UI[lang].copied : UI[lang].nocopy);
-  if (ok) setTimeout(() => { window.location.href = REVIEW_URL; }, 900);
+  if (ok) { window.getSelection && window.getSelection().removeAllRanges(); document.getElementById("sheet").classList.add("show"); }
+  else toast(UI[lang].nocopy);
 };
+document.getElementById("open").href = REVIEW_URL;
+document.getElementById("back").onclick = () => document.getElementById("sheet").classList.remove("show");
 render(); build();
 </script>
 </body>
